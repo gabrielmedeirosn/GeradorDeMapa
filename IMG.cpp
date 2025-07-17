@@ -3,22 +3,25 @@
 #include <fstream>
 using namespace std;
 
-    Image::Image() : width(0), height(0), pixels(nullptr){ //nullptr evita lixo de memoria
+    Image::Image() : width(0), height(0), pixels(nullptr), altitude(nullptr){ //nullptr evita lixo de memoria
 
     }
 
     Image::Image(int w, int h) : width(w), height(h){ //A lista de inicialização inicializa os membros da classe diretamente com os valores passados,
         if (width > 0 and height > 0){ //verificacao
             pixels = new Colors[width * height]; // aloca array de pixels nna heap(memoria usada no tempo de execucao)
+            altitude = new int[width * height];
         }
         else {
-            pixels = nullptr; //nso aloca array caso altura e largura seja invvalida
+            pixels = nullptr; //nao aloca array caso altura e largura seja invvalida
+            altitude = nullptr;
         }
     }
 
     Image::~Image() {
         delete[] pixels;
-        cout << "Memória liberada da Image" << endl;
+        delete [] altitude;
+        cout << "Memória liberada" << endl;
     }
 
     //----------------------------------HEIGHT----------------------------------
@@ -32,6 +35,22 @@ using namespace std;
         width = largura;
     }
     int Image::getWidth(){return width;}
+
+    // ----------------------------------ALTITUDE----------------------------------
+
+    void Image::setAltitude (int linhaAltitude, int colunaAltitude, int valor){
+        if(colunaAltitude>= 0 and colunaAltitude< width and linhaAltitude >= 0 and linhaAltitude< height){//verifica se esta dentro dos limites
+            altitude[linhaAltitude *width + colunaAltitude] = valor;
+        }
+    }
+    int Image::getAltitude (int linhaAltitude, int colunaAltitude) const{
+        if(colunaAltitude>= 0 and colunaAltitude< width and linhaAltitude >= 0 and linhaAltitude< height){//verifica se esta dentro dos limites
+            return altitude[linhaAltitude *width + colunaAltitude];
+        }
+        else {
+        return 0;
+        }
+    }
 
     // ----------------------------------PIXELS----------------------------------
     void Image::setPixel(int linhaPixels, int colunaPixels, Colors cor){

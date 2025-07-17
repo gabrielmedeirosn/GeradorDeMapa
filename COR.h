@@ -20,7 +20,7 @@ public:
     void setG(int green);
     int getG();
 
-     //declarando destrutor
+    void escurece (float fator);
 
 };
 

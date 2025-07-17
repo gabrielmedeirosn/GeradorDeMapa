@@ -5,6 +5,7 @@
 #include "COR.h"
 #include "PALETA.h"
 #include "IMG.h"
+#include "diamondSquare.h"
 //#include "paleta.h"
 using namespace std;
 
@@ -33,7 +34,7 @@ int main() {
 
     }
 
-    cout << "Levando em conta que o tamanho do mapa e definido pela formula"<< endl << "2^n + 1" <<
+    cout << "Levando em conta que o tamanho do mapa e definido pela formula "<< endl << "2^n + 1" <<
     endl << "n = 1  →  3 x 3" << endl <<
     "n = 2  →  5 x 5" << endl <<
     "n = 3  →  9 x 9" << endl <<
@@ -50,45 +51,61 @@ int main() {
     //definindo tamanho do mapa
     int n;// tamanho do N para gerar altura e largura
     cin >> n;
+    
+    if(n>12){ //verificacao
+        cout << "Um mapa tão grande não é recomendado, escolha um valor dentro da faixa." << endl;
+        return 1;
+    }
+
     int size;
     size = pow(2,n) + 1;
     cout << size << " tamanho da img" << endl;
     
 
-    Image mapa(size, size);
-    /*mapa.setHeight(size);
-    mapa.setWidth(size);*/
+    Image mapa(size, size); // Image que vai receber as cores por COlors pixels
+   
     
 
-    //definindo altitude do mapa
+    //definindo um mapa para receber apenas os valores das altitudes
     Image altitudeMap(size, size);
-    srand(time(0)); //gerar uma "semente de numero aleatorio baseado no horario"
-    //int valor = rand()%28; //->> 0,1,2,3,4,5,6,7,8,9,10
+
+
+
+    //teste1
+    srand(time(0)); // Antes de tudo
+    diamondSquare(altitudeMap, paleta.valores[0], numCores); //o range de cores vai ser definido de acordo com o arquivo colors.cor
+
     
-    for(int linha=0; linha < mapa.getHeight(); linha++){
-        for(int coluna = 0; coluna<mapa.getWidth(); coluna++) {
-            int randomNum = rand()%28;
-            Colors cor = paleta.consultarCor(randomNum);
-            mapa.setPixel(linha,coluna,cor);
+
+    for(int lin = 0; lin < mapa.getHeight(); lin++) {
+        for(int col = 0; col < mapa.getWidth(); col++) {
+            int altura = altitudeMap.getAltitude(lin, col);
+
+            if (lin > 0 && col > 0) { // Não aplica para a primeira linha ou coluna
+                int alturaSuperiorEsquerda = altitudeMap.getAltitude(col - 1, lin - 1); // Altura do pixel superior esquerdo
+
+                if (altura < alturaSuperiorEsquerda) { // Se a altura for menor, aplica o escurecimento
+                    Colors cor = paleta.consultarCor(altura);
+                    cor.escurece(0.5f); //fator de escurecimento
+                    mapa.setPixel(lin, col, cor);
+                }
+            
+            else{
+                Colors cor = paleta.consultarCor(altura);
+                mapa.setPixel(lin, col, cor);
+                }
+            }
+
+        else {
+            // Para a primeira linha ou coluna, não há comparação com pixels superiores
+            Colors cor = paleta.consultarCor(altura);
+            mapa.setPixel(lin, col, cor);
+            }
+    
         }
-    }
+    }   
 
     mapa.salvarComoPPM("teste1.ppm");
-
-    
-
-    /*int valorConsulta;
-    cout << "Digite um valor entre 1 e 28: ";
-    cin >> valorConsulta;
-
-    Colors resultado = paleta.consultarCor(valorConsulta);
-
-    cout << "Cor correspondente: RGB("
-         << resultado.getR() << ", "
-         << resultado.getG() << ", "
-         << resultado.getB() << ")" << endl;
-
-    //cout << resultado.getR() + resultado.getB() << endl;*/
 
     return 0;
 }

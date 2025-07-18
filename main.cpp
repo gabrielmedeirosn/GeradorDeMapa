@@ -19,7 +19,7 @@ int main() {
     int r,g,b;
     int numCores;
     int i = 0;
-    double valor;
+    int valor;
 
     arquivo >> numCores;
 

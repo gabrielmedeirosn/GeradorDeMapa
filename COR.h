@@ -13,6 +13,7 @@ private:
 public:
     Colors(int r = 0, int g = 0, int b = 0); //construtor para facilitar a criação dos objetos com inicializadores de lista
     ~Colors();//declarando destrutor
+    
     void setR(int red);
     int getR();
 
@@ -22,7 +23,7 @@ public:
     void setG(int green);
     int getG();
 
-    void escurece (float fator);
+    void escurece (int fator);
 
 };
 

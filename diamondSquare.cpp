@@ -3,6 +3,7 @@
 #include "IMG.h"
 #include "COR.h"
 #include "PALETA.h"
+#include <iostream>
 
 using namespace std;
 
@@ -16,7 +17,8 @@ int clamp(int val, int minVal, int maxVal) {
 void diamondSquare(Image& altitudeMap, int minValue, int maxValue) {
     int size = altitudeMap.getWidth();
     int stepSize = size - 1;
-    float roughness = 0.1f;
+    float roughness = 0.27f; //rugosidade, gerar mudancas no terreno
+    
 
     //Define valores aleatórios nos quatro cantos do mapa
     altitudeMap.setAltitude(0, 0, rand() % (maxValue - minValue + 1) + minValue);

@@ -6,7 +6,6 @@
 #include "PALETA.h"
 #include "IMG.h"
 #include "diamondSquare.h"
-//#include "paleta.h"
 using namespace std;
 
 
@@ -47,7 +46,7 @@ int main() {
     "n = 10 →  1025 x 1025" << endl <<
     "n = 11 →  2049 x 2049" << endl;
 
-    cout << "Digite o N desejado: " << endl;
+    cout << "Digite o N desejado(Recomendado opção 10 e 11 para uma melhor qualidade): " << endl;
     //definindo tamanho do mapa
     int n;// tamanho do N para gerar altura e largura
     cin >> n;
@@ -61,13 +60,13 @@ int main() {
     int size;
     size = pow(2,n) + 1;
     
-
-    Image mapa(size, size); // Image que vai receber as cores por Colors pixels
-   
-    
-
+    // Image que vai receber as cores por Colors pixels
+    Image mapa(size, size); 
     //definindo um mapa para receber apenas os valores das altitudes
     Image altitudeMap(size, size);
+
+    
+    
 
 
 
@@ -76,6 +75,8 @@ int main() {
     diamondSquare(altitudeMap, paleta.valores[0], numCores); //o range de cores vai ser definido de acordo com o arquivo colors.cor
 
     
+    
+
     //Colorir a imagem pixel por pixel
     for(int lin = 0; lin < mapa.getHeight(); lin++) {
         for(int col = 0; col < mapa.getWidth(); col++) {
@@ -86,7 +87,7 @@ int main() {
 
                 if (altura < alturaSuperiorEsquerda) { // Se a altura for menor, aplica o escurecimento
                     Colors cor = paleta.consultarCor(altura);
-                    cor.escurece(0.5f); //fator de escurecimento
+                    cor.escurece(0.3f); //fator de escurecimento
                     mapa.setPixel(lin, col, cor);
                 }
 

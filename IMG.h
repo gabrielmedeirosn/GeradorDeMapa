@@ -24,7 +24,7 @@ public:
     void setAltitude (int linha, int coluna, int valor);
     int getHeight();
     int getWidth();
-    float getAltitude(int linha, int coluna) const;
+    int getAltitude(int linha, int coluna) const;
     
     void setPixel (int linha, int coluna, Colors cor);
     Colors getPixel(int linha, int coluna) const;

@@ -44,7 +44,7 @@ using namespace std;
             altitude[linhaAltitude *width + colunaAltitude] = valor;
         }
     }
-    float Image::getAltitude (int linhaAltitude, int colunaAltitude) const{
+    int Image::getAltitude (int linhaAltitude, int colunaAltitude) const{
         if(colunaAltitude>= 0 and colunaAltitude< width and linhaAltitude >= 0 and linhaAltitude< height){//verifica se esta dentro dos limites
             return altitude[linhaAltitude *width + colunaAltitude];
         }

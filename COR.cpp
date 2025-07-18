@@ -35,7 +35,7 @@ Colors::~Colors(){
     int Colors::getG(){return G;}
 
     //escurecer // sombrear
-    void Colors::escurece(float fator) {
+    void Colors::escurece(int fator) {
     // Aplica um fator de redução nas cores para simular a sombra
     R = int(R * fator);
     G = int(G * fator);
@@ -46,5 +46,6 @@ Colors::~Colors(){
     if (G < 0) G = 0;
     if (B < 0) B = 0;
 }
+
     
     

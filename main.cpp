@@ -57,12 +57,12 @@ int main() {
         return 1;
     }
 
+    //definir tamanho do mapa apartir da formula
     int size;
     size = pow(2,n) + 1;
-    cout << size << " tamanho da img" << endl;
     
 
-    Image mapa(size, size); // Image que vai receber as cores por COlors pixels
+    Image mapa(size, size); // Image que vai receber as cores por Colors pixels
    
     
 
@@ -71,12 +71,12 @@ int main() {
 
 
 
-    //teste1
-    srand(time(0)); // Antes de tudo
+    srand(time(0)); // seed
+    //Altitudes serao aplicadas na Image altitudeMap
     diamondSquare(altitudeMap, paleta.valores[0], numCores); //o range de cores vai ser definido de acordo com o arquivo colors.cor
 
     
-
+    //Colorir a imagem pixel por pixel
     for(int lin = 0; lin < mapa.getHeight(); lin++) {
         for(int col = 0; col < mapa.getWidth(); col++) {
             int altura = altitudeMap.getAltitude(lin, col);
@@ -89,7 +89,7 @@ int main() {
                     cor.escurece(0.5f); //fator de escurecimento
                     mapa.setPixel(lin, col, cor);
                 }
-            
+
             else{
                 Colors cor = paleta.consultarCor(altura);
                 mapa.setPixel(lin, col, cor);
@@ -105,7 +105,15 @@ int main() {
         }
     }   
 
-    mapa.salvarComoPPM("teste1.ppm");
+    cout << "Digite o nome desejado do arquivo (sem extensão)"  << endl;
+    cin.ignore();
+    string nomeImagem;
+    getline(cin, nomeImagem);
+    nomeImagem+= ".ppm";
+    
+
+
+    mapa.salvarComoPPM(nomeImagem);
 
     return 0;
 }

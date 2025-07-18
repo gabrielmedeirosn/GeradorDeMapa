@@ -6,27 +6,29 @@
 
 using namespace std;
 
-
+//garante que os valores apos variacao esteja sempre dentro dos limites
 int clamp(int val, int minVal, int maxVal) {
     if (val < minVal) return minVal;
     if (val > maxVal) return maxVal;
     return val;
 }
-
+//Gera um mapa de altitude utilizando o algoritmo Diamond-Square
 void diamondSquare(Image& altitudeMap, int minValue, int maxValue) {
     int size = altitudeMap.getWidth();
     int stepSize = size - 1;
     float roughness = 0.1f;
 
+    //Define valores aleatórios nos quatro cantos do mapa
     altitudeMap.setAltitude(0, 0, rand() % (maxValue - minValue + 1) + minValue);
     altitudeMap.setAltitude(0, stepSize, rand() % (maxValue - minValue + 1) + minValue);
     altitudeMap.setAltitude(stepSize, 0, rand() % (maxValue - minValue + 1) + minValue);
     altitudeMap.setAltitude(stepSize, stepSize, rand() % (maxValue - minValue + 1) + minValue);
 
+
     while (stepSize > 1) {
         int halfStep = stepSize / 2;
 
-        // Diamond Step
+        // Diamond Step - calcula a media das quinas , adiciona variacao, define o valor central
         for (int lin = halfStep; lin < size; lin += stepSize) {
             for (int col = halfStep; col < size; col += stepSize) {
                 int a = 0, b = 0, c = 0, d = 0;
@@ -59,7 +61,12 @@ void diamondSquare(Image& altitudeMap, int minValue, int maxValue) {
             }
         }
 
-        // Square Step
+        /*offset: stepSize=8, halfStep=4, rand()%stepSize+1 -> gera um numero de 0-8
+        e subtrai o halfStep variando o resultado de -4 ate 4;
+        newMedia forca um numero inteiro e chama a funcao clamp para ver se esta dentro dos limites*/
+
+
+        // Square Step - calcula media dos vizinhos, em cruz, adiciona variacao, define valor central
         for (int lin = 0; lin < size; lin += halfStep) {
             for (int col = (lin + halfStep) % stepSize; col < size; col += stepSize) {
                 int sum = 0, count = 0;

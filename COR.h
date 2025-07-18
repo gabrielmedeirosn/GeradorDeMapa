@@ -4,6 +4,8 @@
 using namespace std;
 //ARQUIVO DE CABECALHO
 
+
+//classe Colors para definir as cores RGB
 class Colors{
 private:
     int R,G,B;

@@ -7,10 +7,11 @@ using namespace std;
 
     }
 
-    Image::Image(int w, int h) : width(w), height(h){ //A lista de inicialização inicializa os membros da classe diretamente com os valores passados,
-        if (width > 0 and height > 0){ //verificacao
+    Image::Image(int w, int h) : width(w), height(h){ //Inicializa um objeto da classe Image com a largura (width) e altura (height) fornecidas, alocando dinamicamente memória
+        if (width > 0 and height > 0){ //verificacao 
             pixels = new Colors[width * height]; // aloca array de pixels nna heap(memoria usada no tempo de execucao)
-            altitude = new int[width * height];
+            //um array de Colors chamado pixels, que representa as cores dos pixels da imagem;
+            altitude = new int [width * height]; //um array de int chamado altitude, que armazena a altitude de cada pixel.
         }
         else {
             pixels = nullptr; //nao aloca array caso altura e largura seja invvalida
@@ -25,16 +26,16 @@ using namespace std;
     }
 
     //----------------------------------HEIGHT----------------------------------
-    void Image::setHeight(int altura){
+    void Image::setHeight(int altura){ //DEFINE ALTURA
         height = altura;
     }
-    int Image::getHeight(){return height;}
+    int Image::getHeight(){return height;} //RETORNA ALTURA
 
     //----------------------------------WIDTH----------------------------------
-    void Image::setWidth(int largura){
+    void Image::setWidth(int largura){ //DEFINE LARGURA
         width = largura;
     }
-    int Image::getWidth(){return width;}
+    int Image::getWidth(){return width;} //RETORNA LARGURA
 
     // ----------------------------------ALTITUDE----------------------------------
 
@@ -43,7 +44,7 @@ using namespace std;
             altitude[linhaAltitude *width + colunaAltitude] = valor;
         }
     }
-    int Image::getAltitude (int linhaAltitude, int colunaAltitude) const{
+    float Image::getAltitude (int linhaAltitude, int colunaAltitude) const{
         if(colunaAltitude>= 0 and colunaAltitude< width and linhaAltitude >= 0 and linhaAltitude< height){//verifica se esta dentro dos limites
             return altitude[linhaAltitude *width + colunaAltitude];
         }
@@ -53,12 +54,12 @@ using namespace std;
     }
 
     // ----------------------------------PIXELS----------------------------------
-    void Image::setPixel(int linhaPixels, int colunaPixels, Colors cor){
+    void Image::setPixel(int linhaPixels, int colunaPixels, Colors cor){ //Define a COR de um pixel na posição (linhaPixels, colunaPixels).
         if(colunaPixels>= 0 and colunaPixels < width and linhaPixels >= 0 and linhaPixels < height){//verifica se esta dentro dos limites
             pixels[linhaPixels *width + colunaPixels] = cor; // atribui uma cor(RGB) ao pixel
         }
     }
-    Colors Image::getPixel(int linhaPixels, int colunaPixels) const{
+    Colors Image::getPixel(int linhaPixels, int colunaPixels) const{ //Retorna a cor (RGB) do pixel localizado em (linhaPixels, colunaPixels).(CONST para expecificar que nao vai alterar nenhum valor)
         return pixels[linhaPixels * width + colunaPixels];
     }
 
@@ -77,6 +78,7 @@ using namespace std;
         arquivo << "255" << endl;
 
         //set pixels
+        //definindo um R,G e B para cada pixel da matriz [i,j]
         for(int i = 0; i < height; i++){
             for (int j = 0; j<width; j++){
                 Colors c = getPixel(i,j);
@@ -85,6 +87,6 @@ using namespace std;
         arquivo << endl;
         }
         arquivo.close();
-        cout << "imagem salva" << endl;
+        cout << "Imagem salva" << endl;
 
 }

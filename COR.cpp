@@ -2,16 +2,7 @@
 #include <iostream>
 using namespace std;
 
-/*"colors::"" assessor da classe .H, entra na classe e ve os metodos que
-podem ser completados
-**USAR NOME DA CLASSE + dois pontos ":"
-*/
-
-/*Colors::Colors() : R(0), G(0), B(0) { //inicializacao ffixa, usando set para mudar
-
-}*/
-
-Colors::Colors(int r, int g, int b) : R(r), G(g), B(b){ ///inicializa;'ao durante a execucao
+Colors::Colors(int r, int g, int b) : R(r), G(g), B(b){ //inicializado durante a execucao
 
 }
 
